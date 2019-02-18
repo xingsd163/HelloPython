@@ -1,5 +1,6 @@
 import platform
 import os
+import time
 
 
 ########################################################################################
@@ -45,14 +46,23 @@ print(get_platform())
 # How to use the os module, create a file, verify if a file exists
 # os.path.exist()
 # os.makedirs()
+# os.removedirs()
 #####################################################################
 print("############################Create files#########################################")
 linux_files=["/home/nathan/opt/test/a.log","/home/nathan/opt/test/b.log","/home/nathan/opt/test/c.blog"]
 for file in linux_files:
     if os.path.exists(file):
-        print(file + " already exists")
-    else:
-        print(file + " doesn't exist")
-        print("Creating file " + file + " ...")
+        print("Step 1: After checking, found " + file + " already exists, " + time.strftime("%Y-%m-%d %H:%M:%S"))
+        print("Step 2: Deleting " + file +" ..., " + time.strftime("%Y-%m-%d %H:%M:%S"))
+        os.removedirs(file)
+        print("Step 3: " + file + " already deleted, " + time.strftime("%Y-%m-%d %H:%M:%S"))
+        print("Step 4: Recreating file " + file + " ..., " + time.strftime("%Y-%m-%d %H:%M:%S"))
         os.makedirs(file)
-        print("File created!")
+        print("Step 5: File already created!" + time.strftime("%Y-%m-%d %H:%M:%S"))
+        print("***********************************")
+    else:
+        print("Step 1: After checking, found " + file + " doesn't exist, " + time.strftime("%Y-%m-%d %H:%M:%S"))
+        print("Step 2: Creating file " + file + " ..., " + time.strftime("%Y-%m-%d %H:%M:%S"))
+        os.makedirs(file)
+        print("Step 3: " +file + " already created!" + time.strftime("%Y-%m-%d %H:%M:%S"))
+        print("***********************************")
