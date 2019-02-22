@@ -3,7 +3,12 @@
 from chatterbot import ChatBot
 from chatterbot.trainers import ListTrainer
 
-bot = ChatBot('MyChatBot')
+bot = ChatBot(
+    "mychatbot",
+    logic_adapters=[
+        "chatterbot.logic.BestMatch"
+    ]
+)
 # bot.set_trainer(ListTrainer)
 trainer=ListTrainer(bot)
 
