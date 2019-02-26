@@ -9,6 +9,7 @@
 #     timeTaken = str(random.randint(100, 1000))
 
 import random
+import time
 
 # random.random()用于生成一个0到1的随机符点数: 0 <= n < 1.0
 # random.uniform(a, b)，用于生成一个指定范围内的随机符点数，两个参数其中一个是上限，一个是下限。如果a > b，则生成的随机数n: a <= n <= b。如果 a <b， 则 b <= n <= a
@@ -55,3 +56,22 @@ random.shuffle(p)
 print(p)
 
 
+list01=["Hello Java","Hello Python","Hello C#","Hello VB"]
+a=random.randint(0,len(list01)-1)
+print(list01[random.randint(0,len(list01)-1)])
+time.sleep(0.3)
+print(list01[random.randint(0,len(list01)-1)])
+time.sleep(0.3)
+print(list01[random.randint(0,len(list01)-1)])
+time.sleep(0.3)
+print(list01[random.randint(0,len(list01)-1)])
+time.sleep(0.3)
+print(list01[random.randint(0,len(list01)-1)])
+time.sleep(0.3)
+print(list01[random.randint(0,len(list01)-1)])
+time.sleep(0.3)
+print(list01[random.randint(0,len(list01)-1)])
+time.sleep(0.3)
+print(list01[random.randint(0,len(list01)-1)])
+time.sleep(0.3)
+print(list01[random.randint(0,len(list01)-1)])
