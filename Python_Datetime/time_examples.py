@@ -14,9 +14,23 @@ print("Get Unix time: " + str(current_time))
 
 
 # get a time tuple
+# tm_year
+# tm_mon
+# tm_mday
+# tm_hour
+# tm_min
+# tm_sec
+# tm_wday
+# tm_yday
+# tm_isdst
+
 
 localtime=time.localtime(time.time())
+print(localtime)
 print("Time in tuple format: " + str(localtime))
+
+print("Getting the year: " + str(time.localtime().tm_year))
+print("Getting the month: " + str(time.localtime().tm_mon))
 
 print("time.localtime: " +str(time.localtime()))
 
@@ -56,7 +70,7 @@ str="Do you like me, if you like me, please let me know"
 strs=str.split(" ")
 for i in strs:
     print(i)
-    time.sleep(0.5)
+    time.sleep(0.2)
 
 
 

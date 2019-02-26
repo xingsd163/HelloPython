@@ -1,0 +1,57 @@
+# Random module
+# productId = productIds[random.randint(0, len(productIds) - 1)]
+#     itemId = itemIds[random.randint(0, len(itemIds) - 1)]
+#     catId = catIds[random.randint(0, len(catIds) - 1)]
+#     action = actions[random.randint(0, len(actions) - 1)]
+#     status = '200'
+#     method = methods[random.randint(0, len(methods) - 1)]
+#     bytesXferred = str(random.randint(200, 4000))
+#     timeTaken = str(random.randint(100, 1000))
+
+import random
+
+# random.random()用于生成一个0到1的随机符点数: 0 <= n < 1.0
+# random.uniform(a, b)，用于生成一个指定范围内的随机符点数，两个参数其中一个是上限，一个是下限。如果a > b，则生成的随机数n: a <= n <= b。如果 a <b， 则 b <= n <= a
+# random.randint(a, b)，用于生成一个指定范围内的整数。其中参数a是下限，参数b是上限，生成的随机数n: a <= n <= b
+# random.randrange([start], stop[, step])，从指定范围内，按指定基数递增的集合中 获取一个随机数。如：random.randrange(10, 100, 2)，结果相当于从[10, 12, 14, 16, ... 96, 98]序列中获取一个随机数。
+# random.choice() 从序列中获取一个随机元素。其函数原型为：random.choice(sequence)。参数sequence表示一个有序类型。这里要说明 一下：sequence在python不是一种特定的类型，而是泛指一系列的类型。list, tuple, 字符串都属于sequence。
+# random.shuffle(x[, random])，用于将一个列表中的元素打乱。
+# random.sample(sequence, k)，从指定序列中随机获取指定长度的片断
+
+print("random.randint()...")
+print(random.randint(1,2))
+print(random.randint(1,2))
+print(random.randint(1,2))
+print(random.randint(1,2))
+
+print("random.randint()...")
+print(random.randint(5,10))
+print(random.randint(5,10))
+print(random.randint(5,10))
+print(random.randint(5,10))
+print(random.randint(5,10))
+
+print("random.choice()...")
+print(random.choice("This is Python World"))
+print(random.choice("This is Python World"))
+print(random.choice("This is Python World"))
+print(random.choice("This is Python World"))
+print(random.choice("This is Python World"))
+print(random.choice("This is Python World"))
+print(random.choice("This is Python World"))
+
+print("random.choice()....")
+print(random.choice(['Python','Java','C#','VB','Swift',"JavaScript"]))
+print(random.choice(['Python','Java','C#','VB','Swift',"JavaScript"]))
+print(random.choice(['Python','Java','C#','VB','Swift',"JavaScript"]))
+print(random.choice(['Python','Java','C#','VB','Swift',"JavaScript"]))
+print(random.choice(['Python','Java','C#','VB','Swift',"JavaScript"]))
+print(random.choice(['Python','Java','C#','VB','Swift',"JavaScript"]))
+print(random.choice(['Python','Java','C#','VB','Swift',"JavaScript"]))
+
+print("random.shuffle()")
+p=["This", "is", "Python", "World"]
+random.shuffle(p)
+print(p)
+
+
