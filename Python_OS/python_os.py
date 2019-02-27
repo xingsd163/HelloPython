@@ -28,3 +28,48 @@ import os.path
 # https://www.cnblogs.com/yufeihlf/p/6179547.html
 
 
+import os
+import platform as pl
+
+
+print(os.name)
+print(pl.uname())
+print(pl.version())
+
+# os.getcwd()
+# os.chdir()
+
+print(os.getcwd())
+print("Changing current working directory\n", os.chdir("/home/nathan"))
+print(os.getcwd())
+
+print("testing os.mkdir() and os.rmdir()")
+
+print(os.path.exists("/home/nathan/mkdir_test01"))
+
+# How to use not!!!!!
+if not os.path.exists("/home/nathan/mkdir_test01"):
+    os.mkdir("/home/nathan/mkdir_test01")
+    print(os.path.exists("/home/nathan/mkdir_test01"))
+else:
+    os.removedirs("/home/nathan/mkdir_test01")
+
+# True OR False, AND-OR-NOT
+# True and False should be in upper case
+# and or not should be in lower case
+print("Using AND-OR-NOT")
+print(True)
+print(False)
+print("and: ",True and False)
+print("or: ", True or False)
+print("not: ", not True)
+print("not: ", not False)
+
+
+if not os.path.exists("/home/nathan/sdfsdfs"):
+    os.mkdir("/home/nathan/sdfsdfs")
+    os.rmdir("/home/nathan/sdfsdfs")
+
+# Get environmental variables
+
+print(os.environ)
