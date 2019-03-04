@@ -1,0 +1,795 @@
+https://www.cnblogs.com/wf-linux/archive/2018/08/01/9400354.html
+
+
+
+os模块就是对操作系统进行操作
+hashlib主要提供字符加密功能，将md5和sha模块整合到了一起，支持md5,sha1, sha224, sha256, sha384, sha512等算法
+time模块
+datatime模块重新封装了time模块，提供更多接口，提供的类有：date,time,datetime,timedelta,tzinfo。
+sys 模块
+logging模块是Python内置的标准模块，主要用于输出运行日志，可以设置输出日志的等级、日志保存路径、日志文件回滚等
+subprocess是Python 2.4中新增的一个模块，它允许你生成新的进程，连接到它们的 input/output/error 管道，并获取它们的返回（状态）码
+json 模块
+picle模块
+configparser 是 Pyhton 标准库中用来解析配置文件的模块，并且内置方法和字典非常接近。Python2.x 中名为 ConfigParser，3.x 已更名小写，并加入了一些新功能
+randmon
+shutil模块
+paramiko是一个用于做远程控制的模块，使用该模块可以对远程服务器进行命令或文件操作，值得一说的是，fabric和ansible内部的远程管理就是使用的paramiko来现实。
+urllib
+Requests 是使用 Apache2 Licensed 许可证的 基于Python开发的HTTP 库，其在Python内置模块的基础上进行了高度的封装，从而使得Pythoner进行网络请求时，变得美好了许多，使用Requests可以轻而易举的完成浏览器可有的任何操作。
+getpass
+yaml
+difflib
+filecmp
+
+
+
+
+
+
+
+
+
+
+
+OS module
+os模块就是对操作系统进行操作，使用该模块必须先导入模块：
+import os
+
+#getcwd() 获取当前工作目录(当前工作目录默认都是当前文件所在的文件夹)
+result = os.getcwd()
+print(result)
+
+#chdir()改变当前工作目录
+os.chdir('/home/sy')
+result = os.getcwd()
+print(result)
+
+open('02.txt','w')
+
+#操作时如果书写完整的路径则不需要考虑默认工作目录的问题,按照实际书写路径操作
+open('/home/sy/下载/02.txt','w')
+
+#listdir() 获取指定文件夹中所有内容的名称列表
+result = os.listdir('/home/sy')
+print(result)
+
+#mkdir()  创建文件夹
+#os.mkdir('girls')
+#os.mkdir('boys',0o777)
+
+#makedirs()  递归创建文件夹
+#os.makedirs('/home/sy/a/b/c/d')
+
+#rmdir() 删除空目录
+#os.rmdir('girls')
+
+#removedirs 递归删除文件夹  必须都是空目录
+#os.removedirs('/home/sy/a/b/c/d')
+
+#rename() 文件或文件夹重命名
+#os.rename('/home/sy/a','/home/sy/alibaba'
+#os.rename('02.txt','002.txt')
+
+#stat() 获取文件或者文件夹的信息
+#result = os.stat('/home/sy/PycharmProject/Python3/10.27/01.py)
+#print(result)
+
+#system() 执行系统命令(危险函数)
+#result = os.system('ls -al')  #获取隐藏文件
+#print(result)
+
+#环境变量
+'''
+环境变量就是一些命令的集合
+操作系统的环境变量就是操作系统在执行系统命令时搜索命令的目录的集合
+'''
+#getenv() 获取系统的环境变量
+result = os.getenv('PATH')
+print(result.split(':'))
+
+#putenv() 将一个目录添加到环境变量中(临时增加仅对当前脚本有效)
+#os.putenv('PATH','/home/sy/下载')
+#os.system('syls')
+
+#exit() 退出终端的命令
+
+#os模块中的常用值
+#curdir  表示当前文件夹   .表示当前文件夹  一般情况下可以省略
+print(os.curdir)
+
+#pardir  表示上一层文件夹   ..表示上一层文件夹  不可省略!
+print(os.pardir)
+
+#os.mkdir('../../../man')#相对路径  从当前目录开始查找
+#os.mkdir('/home/sy/man1')#绝对路径  从根目录开始查找
+
+#name 获取代表操作系统的名称字符串
+print(os.name) #posix -> linux或者unix系统  nt -> window系统
+
+#sep 获取系统路径间隔符号  window ->\    linux ->/
+print(os.sep)
+
+#extsep 获取文件名称和后缀之间的间隔符号  window & linux -> .
+print(os.extsep)
+
+#linesep  获取操作系统的换行符号  window -> \r\n  linux/unix -> \n
+print(repr(os.linesep))
+
+
+#导入os模块
+import os
+
+#以下内容都是os.path子模块中的内容
+
+#abspath()  将相对路径转化为绝对路径
+path = './boys'#相对
+result = os.path.abspath(path)
+print(result)
+
+#dirname()  获取完整路径当中的目录部分  &  basename()获取完整路径当中的主体部分
+path = '/home/sy/boys'
+result = os.path.dirname(path)
+print(result)
+
+result = os.path.basename(path)
+print(result)
+
+#split() 将一个完整的路径切割成目录部分和主体部分
+path = '/home/sy/boys'
+result = os.path.split(path)
+print(result)
+
+#join() 将2个路径合并成一个
+var1 = '/home/sy'
+var2 = '000.py'
+result = os.path.join(var1,var2)
+print(result)
+
+#splitext() 将一个路径切割成文件后缀和其他两个部分,主要用于获取文件的后缀
+path = '/home/sy/000.py'
+result = os.path.splitext(path)
+print(result)
+
+#getsize()  获取文件的大小
+#path = '/home/sy/000.py'
+#result = os.path.getsize(path)
+#print(result)
+
+#isfile() 检测是否是文件
+path = '/home/sy/000.py'
+result = os.path.isfile(path)
+print(result)
+
+#isdir()  检测是否是文件夹
+result = os.path.isdir(path)
+print(result)
+
+#islink() 检测是否是链接
+path = '/initrd.img.old'
+result = os.path.islink(path)
+print(result)
+
+#getctime() 获取文件的创建时间 get create time
+#getmtime() 获取文件的修改时间 get modify time
+#getatime() 获取文件的访问时间 get active time
+
+import time
+
+filepath = '/home/sy/下载/chls'
+
+result = os.path.getctime(filepath)
+print(time.ctime(result))
+
+result = os.path.getmtime(filepath)
+print(time.ctime(result))
+
+result = os.path.getatime(filepath)
+print(time.ctime(result))
+
+#exists() 检测某个路径是否真实存在
+filepath = '/home/sy/下载/chls'
+result = os.path.exists(filepath)
+print(result)
+
+#isabs() 检测一个路径是否是绝对路径
+path = '/boys'
+result = os.path.isabs(path)
+print(result)
+
+#samefile() 检测2个路径是否是同一个文件
+path1 = '/home/sy/下载/001'
+path2 = '../../../下载/001'
+result = os.path.samefile(path1,path2)
+print(result)
+
+
+#os.environ 用于获取和设置系统环境变量的内置值
+import os
+#获取系统环境变量  getenv() 效果
+print(os.environ['PATH'])
+
+#设置系统环境变量 putenv()
+os.environ['PATH'] += ':/home/sy/下载'
+os.system('chls')
+os 常用方法
+
+os.remove(‘path/filename’) 删除文件
+
+os.rename(oldname, newname) 重命名文件
+
+os.walk() 生成目录树下的所有文件名
+
+os.chdir('dirname') 改变目录
+
+os.mkdir/makedirs('dirname')创建目录/多层目录
+
+os.rmdir/removedirs('dirname') 删除目录/多层目录
+
+os.listdir('dirname') 列出指定目录的文件
+
+os.getcwd() 取得当前工作目录
+
+os.chmod() 改变目录权限
+
+os.path.basename(‘path/filename’) 去掉目录路径，返回文件名
+
+os.path.dirname(‘path/filename’) 去掉文件名，返回目录路径
+
+os.path.join(path1[,path2[,...]]) 将分离的各部分组合成一个路径名
+
+os.path.split('path') 返回( dirname(), basename())元组
+
+os.path.splitext() 返回 (filename, extension) 元组
+
+os.path.getatime\ctime\mtime 分别返回最近访问、创建、修改时间
+
+os.path.getsize() 返回文件大小
+
+os.path.exists() 是否存在
+
+os.path.isabs() 是否为绝对路径
+
+os.path.isdir() 是否为目录
+
+os.path.isfile() 是否为文件
+
+
+
+sys 模块
+
+sys.argv 命令行参数List，第一个元素是程序本身路径
+
+sys.modules.keys() 返回所有已经导入的模块列表
+
+sys.exc_info() 获取当前正在处理的异常类,exc_type、exc_value、exc_traceback当前处理的异常详细信息
+
+sys.exit(n) 退出程序，正常退出时exit(0)
+
+sys.hexversion 获取Python解释程序的版本值，16进制格式如：0x020403F0
+
+sys.version 获取Python解释程序的版本信息
+
+sys.maxint 最大的Int值
+
+sys.maxunicode 最大的Unicode值
+
+sys.modules 返回系统导入的模块字段，key是模块名，value是模块
+
+sys.path 返回模块的搜索路径，初始化时使用PYTHONPATH环境变量的值
+
+sys.platform 返回操作系统平台名称
+
+sys.stdout 标准输出
+
+sys.stdin 标准输入
+
+sys.stderr 错误输出
+
+sys.exc_clear() 用来清除当前线程所出现的当前的或最近的错误信息
+
+sys.exec_prefix 返回平台独立的python文件安装的位置
+
+sys.byteorder 本地字节规则的指示器，big-endian平台的值是'big',little-endian平台的值是'little'
+
+sys.copyright 记录python版权相关的东西
+
+sys.api_version 解释器的C的API版本
+
+
+sys.stdin,sys.stdout,sys.stderr
+
+stdin , stdout , 以及stderr 变量包含与标准I/O 流对应的流对象. 如果需要更好地控制输出,而print 不能满足你的要求, 它们就是你所需要的. 你也可以替换它们, 这时候你就可以重定向输出和输入到其它设备( device ), 或者以非标准的方式处理它们
+我们常用print和raw_input来进行输入和打印，那么print 和 raw_input是如何与标准输入/输出流建立关系的呢？
+其实Python程序的标准输入/输出/出错流定义在sys模块中，分别 为： sys.stdin,sys.stdout, sys.stderr
+下列的程序也可以用来输入和输出是一样的：
+import sys
+
+sys.stdout.write('HelloWorld!')
+
+print 'Please enter yourname:',
+name=sys.stdin.readline()[:-1]
+print 'Hi, %s!' % name
+
+那么sys.stdin, sys.stdout, stderr到底是什么呢？我们在Python运行环境中输入以下代码：
+import sys
+for f in (sys.stdin,sys.stdout, sys.stderr): print f
+输出为：
+<open file'<stdin>', mode 'r' at 892210>
+<open file'<stdout>', mode 'w' at 892270>
+<open file'<stderr>', mode 'w at 8922d0>
+
+由此可以看出stdin, stdout, stderr在Python中无非都是文件属性的对象，他们在Python启动时自动与Shell 环境中的标准输入，输出，出错关联。
+而Python程序的在Shell中的I/O重定向与本文开始时举的DOS命令的重定向完全相同，其实这种重定向是由Shell来提供的，与Python 本身并无关系。那么我们是否可以在Python程序内部将stdin,stdout,stderr读写操作重定向到一个内部对象呢？答案是肯定的。
+Python提供了一个StringIO模块来完成这个设想，比如：
+from StringIO import StringIO
+import sys
+buff =StringIO()
+
+temp =sys.stdout                              #保存标准I/O流
+sys.stdout =buff                                #将标准I/O流重定向到buff对象
+print 42, 'hello', 0.001
+
+sys.stdout=temp                                #恢复标准I/O流
+print buff.getvalue()
+
+
+
+hashlib加密
+hashlib主要提供字符加密功能，将md5和sha模块整合到了一起，支持md5,sha1, sha224, sha256, sha384, sha512等算法
+
+
+
+
+logging模块简介
+logging模块是Python内置的标准模块，主要用于输出运行日志，可以设置输出日志的等级、日志保存路径、日志文件回滚等；相比print，具备如下优点：
+
+可以通过设置不同的日志等级，在release版本中只输出重要信息，而不必显示大量的调试信息；
+print将所有信息都输出到标准输出中，严重影响开发者从标准输出中查看其它数据；logging则可以由开发者决定将信息输出到什么地方，以及怎么输出；
+2 logging模块使用
+2.1 基本使用
+配置logging基本的设置，然后在控制台输出日志，
+
+
+import logging
+logging.basicConfig(level = logging.INFO,format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+
+logger.info("Start print log")
+logger.debug("Do something")
+logger.warning("Something maybe fail.")
+logger.info("Finish")
+
+运行时，控制台输出，
+
+2016-10-09 19:11:19,434 - __main__ - INFO - Start print log
+2016-10-09 19:11:19,434 - __main__ - WARNING - Something maybe fail.
+2016-10-09 19:11:19,434 - __main__ - INFO - Finish
+logging中可以选择很多消息级别，如debug、info、warning、error以及critical。通过赋予logger或者handler不同的级别，开发者就可以只输出错误信息到特定的记录文件，或者在调试时只记录调试信息。
+
+例如，我们将logger的级别改为DEBUG，再观察一下输出结果，
+
+logging.basicConfig(level = logging.DEBUG,format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+控制台输出，可以发现，输出了debug的信息。
+
+2016-10-09 19:12:08,289 - __main__ - INFO - Start print log
+2016-10-09 19:12:08,289 - __main__ - DEBUG - Do something
+2016-10-09 19:12:08,289 - __main__ - WARNING - Something maybe fail.
+2016-10-09 19:12:08,289 - __main__ - INFO - Finish
+logging.basicConfig函数各参数：
+
+filename：指定日志文件名；
+
+filemode：和file函数意义相同，指定日志文件的打开模式，'w'或者'a'；
+
+format：指定输出的格式和内容，format可以输出很多有用的信息，
+
+参数：作用
+
+%(levelno)s：打印日志级别的数值
+%(levelname)s：打印日志级别的名称
+%(pathname)s：打印当前执行程序的路径，其实就是sys.argv[0]
+%(filename)s：打印当前执行程序名
+%(funcName)s：打印日志的当前函数
+%(lineno)d：打印日志的当前行号
+%(asctime)s：打印日志的时间
+%(thread)d：打印线程ID
+%(threadName)s：打印线程名称
+%(process)d：打印进程ID
+%(message)s：打印日志信息
+datefmt：指定时间格式，同time.strftime()；
+
+level：设置日志级别，默认为logging.WARNNING；
+
+stream：指定将日志的输出流，可以指定输出到sys.stderr，sys.stdout或者文件，默认输出到sys.stderr，当stream和filename同时指定时，stream被忽略；
+
+2.2 将日志写入到文件
+2.2.1 将日志写入到文件
+
+设置logging，创建一个FileHandler，并对输出消息的格式进行设置，将其添加到logger，然后将日志写入到指定的文件中，
+
+
+
+import logging
+logger = logging.getLogger(__name__)
+logger.setLevel(level = logging.INFO)
+handler = logging.FileHandler("log.txt")
+handler.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+
+logger.info("Start print log")
+logger.debug("Do something")
+logger.warning("Something maybe fail.")
+logger.info("Finish")
+
+log.txt中日志数据为，
+
+2016-10-09 19:01:13,263 - __main__ - INFO - Start print log
+2016-10-09 19:01:13,263 - __main__ - WARNING - Something maybe fail.
+2016-10-09 19:01:13,263 - __main__ - INFO - Finish
+2.2.2 将日志同时输出到屏幕和日志文件
+
+logger中添加StreamHandler，可以将日志输出到屏幕上，
+
+
+import logging
+logger = logging.getLogger(__name__)
+logger.setLevel(level = logging.INFO)
+handler = logging.FileHandler("log.txt")
+handler.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+
+console = logging.StreamHandler()
+console.setLevel(logging.INFO)
+
+logger.addHandler(handler)
+logger.addHandler(console)
+
+logger.info("Start print log")
+logger.debug("Do something")
+logger.warning("Something maybe fail.")
+logger.info("Finish")
+
+可以在log.txt文件和控制台中看到，
+
+2016-10-09 19:20:46,553 - __main__ - INFO - Start print log
+2016-10-09 19:20:46,553 - __main__ - WARNING - Something maybe fail.
+2016-10-09 19:20:46,553 - __main__ - INFO - Finish
+可以发现，logging有一个日志处理的主对象，其他处理方式都是通过addHandler添加进去，logging中包含的handler主要有如下几种，
+
+handler名称：位置；作用
+
+StreamHandler：logging.StreamHandler；日志输出到流，可以是sys.stderr，sys.stdout或者文件
+FileHandler：logging.FileHandler；日志输出到文件
+BaseRotatingHandler：logging.handlers.BaseRotatingHandler；基本的日志回滚方式
+RotatingHandler：logging.handlers.RotatingHandler；日志回滚方式，支持日志文件最大数量和日志文件回滚
+TimeRotatingHandler：logging.handlers.TimeRotatingHandler；日志回滚方式，在一定时间区域内回滚日志文件
+SocketHandler：logging.handlers.SocketHandler；远程输出日志到TCP/IP sockets
+DatagramHandler：logging.handlers.DatagramHandler；远程输出日志到UDP sockets
+SMTPHandler：logging.handlers.SMTPHandler；远程输出日志到邮件地址
+SysLogHandler：logging.handlers.SysLogHandler；日志输出到syslog
+NTEventLogHandler：logging.handlers.NTEventLogHandler；远程输出日志到Windows NT/2000/XP的事件日志
+MemoryHandler：logging.handlers.MemoryHandler；日志输出到内存中的指定buffer
+HTTPHandler：logging.handlers.HTTPHandler；通过"GET"或者"POST"远程输出到HTTP服务器
+2.2.3 日志回滚
+
+使用RotatingFileHandler，可以实现日志回滚，
+
+
+import logging
+from logging.handlers import RotatingFileHandler
+logger = logging.getLogger(__name__)
+logger.setLevel(level = logging.INFO)
+#定义一个RotatingFileHandler，最多备份3个日志文件，每个日志文件最大1K
+rHandler = RotatingFileHandler("log.txt",maxBytes = 1*1024,backupCount = 3)
+rHandler.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+rHandler.setFormatter(formatter)
+
+console = logging.StreamHandler()
+console.setLevel(logging.INFO)
+console.setFormatter(formatter)
+
+logger.addHandler(rHandler)
+logger.addHandler(console)
+
+logger.info("Start print log")
+logger.debug("Do something")
+logger.warning("Something maybe fail.")
+logger.info("Finish")
+
+可以在工程目录中看到，备份的日志文件，
+
+2016/10/09  19:36               732 log.txt
+2016/10/09  19:36               967 log.txt.1
+2016/10/09  19:36               985 log.txt.2
+2016/10/09  19:36               976 log.txt.3
+2.3 设置消息的等级
+可以设置不同的日志等级，用于控制日志的输出，
+
+日志等级：使用范围
+
+FATAL：致命错误
+CRITICAL：特别糟糕的事情，如内存耗尽、磁盘空间为空，一般很少使用
+ERROR：发生错误时，如IO操作失败或者连接问题
+WARNING：发生很重要的事件，但是并不是错误时，如用户登录密码错误
+INFO：处理请求或者状态变化等日常事务
+DEBUG：调试过程中使用DEBUG等级，如算法中每个循环的中间状态
+2.4 捕获traceback
+Python中的traceback模块被用于跟踪异常返回信息，可以在logging中记录下traceback，
+
+代码，
+
+
+import logging
+logger = logging.getLogger(__name__)
+logger.setLevel(level = logging.INFO)
+handler = logging.FileHandler("log.txt")
+handler.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+
+console = logging.StreamHandler()
+console.setLevel(logging.INFO)
+
+logger.addHandler(handler)
+logger.addHandler(console)
+
+logger.info("Start print log")
+logger.debug("Do something")
+logger.warning("Something maybe fail.")
+try:
+    open("sklearn.txt","rb")
+except (SystemExit,KeyboardInterrupt):
+    raise
+except Exception:
+    logger.error("Faild to open sklearn.txt from logger.error",exc_info = True)
+
+logger.info("Finish")
+
+控制台和日志文件log.txt中输出，
+
+Start print log
+Something maybe fail.
+Faild to open sklearn.txt from logger.error
+Traceback (most recent call last):
+  File "G:\zhb7627\Code\Eclipse WorkSpace\PythonTest\test.py", line 23, in <module>
+    open("sklearn.txt","rb")
+IOError: [Errno 2] No such file or directory: 'sklearn.txt'
+Finish
+也可以使用logger.exception(msg,_args)，它等价于logger.error(msg,exc_info = True,_args)，
+
+将
+
+logger.error("Faild to open sklearn.txt from logger.error",exc_info = True)
+替换为，
+
+logger.exception("Failed to open sklearn.txt from logger.exception")
+控制台和日志文件log.txt中输出，
+
+Start print log
+Something maybe fail.
+Failed to open sklearn.txt from logger.exception
+Traceback (most recent call last):
+  File "G:\zhb7627\Code\Eclipse WorkSpace\PythonTest\test.py", line 23, in <module>
+    open("sklearn.txt","rb")
+IOError: [Errno 2] No such file or directory: 'sklearn.txt'
+Finish
+2.5 多模块使用logging
+主模块mainModule.py，
+
+
+import logging
+import subModule
+logger = logging.getLogger("mainModule")
+logger.setLevel(level = logging.INFO)
+handler = logging.FileHandler("log.txt")
+handler.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+
+console = logging.StreamHandler()
+console.setLevel(logging.INFO)
+console.setFormatter(formatter)
+
+logger.addHandler(handler)
+logger.addHandler(console)
+
+
+logger.info("creating an instance of subModule.subModuleClass")
+a = subModule.SubModuleClass()
+logger.info("calling subModule.subModuleClass.doSomething")
+a.doSomething()
+logger.info("done with  subModule.subModuleClass.doSomething")
+logger.info("calling subModule.some_function")
+subModule.som_function()
+logger.info("done with subModule.some_function")
+
+子模块subModule.py，
+
+
+import logging
+
+module_logger = logging.getLogger("mainModule.sub")
+class SubModuleClass(object):
+    def __init__(self):
+        self.logger = logging.getLogger("mainModule.sub.module")
+        self.logger.info("creating an instance in SubModuleClass")
+    def doSomething(self):
+        self.logger.info("do something in SubModule")
+        a = []
+        a.append(1)
+        self.logger.debug("list a = " + str(a))
+        self.logger.info("finish something in SubModuleClass")
+
+def som_function():
+    module_logger.info("call function some_function")
+
+执行之后，在控制和日志文件log.txt中输出，
+
+2016-10-09 20:25:42,276 - mainModule - INFO - creating an instance of subModule.subModuleClass
+2016-10-09 20:25:42,279 - mainModule.sub.module - INFO - creating an instance in SubModuleClass
+2016-10-09 20:25:42,279 - mainModule - INFO - calling subModule.subModuleClass.doSomething
+2016-10-09 20:25:42,279 - mainModule.sub.module - INFO - do something in SubModule
+2016-10-09 20:25:42,279 - mainModule.sub.module - INFO - finish something in SubModuleClass
+2016-10-09 20:25:42,279 - mainModule - INFO - done with  subModule.subModuleClass.doSomething
+2016-10-09 20:25:42,279 - mainModule - INFO - calling subModule.some_function
+2016-10-09 20:25:42,279 - mainModule.sub - INFO - call function some_function
+2016-10-09 20:25:42,279 - mainModule - INFO - done with subModule.some_function
+首先在主模块定义了logger'mainModule'，并对它进行了配置，就可以在解释器进程里面的其他地方通过getLogger('mainModule')得到的对象都是一样的，不需要重新配置，可以直接使用。定义的该logger的子logger，都可以共享父logger的定义和配置，所谓的父子logger是通过命名来识别，任意以'mainModule'开头的logger都是它的子logger，例如'mainModule.sub'。
+
+实际开发一个application，首先可以通过logging配置文件编写好这个application所对应的配置，可以生成一个根logger，如'PythonAPP'，然后在主函数中通过fileConfig加载logging配置，接着在application的其他地方、不同的模块中，可以使用根logger的子logger，如'PythonAPP.Core'，'PythonAPP.Web'来进行log，而不需要反复的定义和配置各个模块的logger。
+
+3 通过JSON或者YAML文件配置logging模块
+尽管可以在Python代码中配置logging，但是这样并不够灵活，最好的方法是使用一个配置文件来配置。在Python 2.7及以后的版本中，可以从字典中加载logging配置，也就意味着可以通过JSON或者YAML文件加载日志的配置。
+
+3.1 通过JSON文件配置
+JSON配置文件，
+
+{
+    "version":1,
+    "disable_existing_loggers":false,
+    "formatters":{
+        "simple":{
+            "format":"%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        }
+    },
+    "handlers":{
+        "console":{
+            "class":"logging.StreamHandler",
+            "level":"DEBUG",
+            "formatter":"simple",
+            "stream":"ext://sys.stdout"
+        },
+        "info_file_handler":{
+            "class":"logging.handlers.RotatingFileHandler",
+            "level":"INFO",
+            "formatter":"simple",
+            "filename":"info.log",
+            "maxBytes":"10485760",
+            "backupCount":20,
+            "encoding":"utf8"
+        },
+        "error_file_handler":{
+            "class":"logging.handlers.RotatingFileHandler",
+            "level":"ERROR",
+            "formatter":"simple",
+            "filename":"errors.log",
+            "maxBytes":10485760,
+            "backupCount":20,
+            "encoding":"utf8"
+        }
+    },
+    "loggers":{
+        "my_module":{
+            "level":"ERROR",
+            "handlers":["info_file_handler"],
+            "propagate":"no"
+        }
+    },
+    "root":{
+        "level":"INFO",
+        "handlers":["console","info_file_handler","error_file_handler"]
+    }
+}
+通过JSON加载配置文件，然后通过logging.dictConfig配置logging，
+
+
+import json
+import logging.config
+import os
+
+def setup_logging(default_path = "logging.json",default_level = logging.INFO,env_key = "LOG_CFG"):
+    path = default_path
+    value = os.getenv(env_key,None)
+    if value:
+        path = value
+    if os.path.exists(path):
+        with open(path,"r") as f:
+            config = json.load(f)
+            logging.config.dictConfig(config)
+    else:
+        logging.basicConfig(level = default_level)
+
+def func():
+    logging.info("start func")
+
+    logging.info("exec func")
+
+    logging.info("end func")
+
+if __name__ == "__main__":
+    setup_logging(default_path = "logging.json")
+    func()
+
+3.2 通过YAML文件配置
+通过YAML文件进行配置，比JSON看起来更加简介明了，
+
+version: 1
+disable_existing_loggers: False
+formatters:
+        simple:
+            format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+handlers:
+    console:
+            class: logging.StreamHandler
+            level: DEBUG
+            formatter: simple
+            stream: ext://sys.stdout
+    info_file_handler:
+            class: logging.handlers.RotatingFileHandler
+            level: INFO
+            formatter: simple
+            filename: info.log
+            maxBytes: 10485760
+            backupCount: 20
+            encoding: utf8
+    error_file_handler:
+            class: logging.handlers.RotatingFileHandler
+            level: ERROR
+            formatter: simple
+            filename: errors.log
+            maxBytes: 10485760
+            backupCount: 20
+            encoding: utf8
+loggers:
+    my_module:
+            level: ERROR
+            handlers: [info_file_handler]
+            propagate: no
+root:
+    level: INFO
+    handlers: [console,info_file_handler,error_file_handler]
+通过YAML加载配置文件，然后通过logging.dictConfig配置logging，
+
+
+import yaml
+import logging.config
+import os
+
+def setup_logging(default_path = "logging.yaml",default_level = logging.INFO,env_key = "LOG_CFG"):
+    path = default_path
+    value = os.getenv(env_key,None)
+    if value:
+        path = value
+    if os.path.exists(path):
+        with open(path,"r") as f:
+            config = yaml.load(f)
+            logging.config.dictConfig(config)
+    else:
+        logging.basicConfig(level = default_level)
+
+def func():
+    logging.info("start func")
+
+    logging.info("exec func")
+
+    logging.info("end func")
+
+if __name__ == "__main__":
+    setup_logging(default_path = "logging.yaml")
+    func()
+
