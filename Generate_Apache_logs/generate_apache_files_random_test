@@ -75,3 +75,11 @@ time.sleep(0.3)
 print(list01[random.randint(0,len(list01)-1)])
 time.sleep(0.3)
 print(list01[random.randint(0,len(list01)-1)])
+
+import datetime
+
+endTime = datetime.datetime.today()
+currentTime = endTime - datetime.timedelta(seconds=30)
+
+eventTime = currentTime + datetime.timedelta(seconds=(random.randint(1, 30)))
+print(eventTime.strftime('%d/%b/%Y:%H:%M:%S'))
