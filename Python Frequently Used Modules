@@ -10,7 +10,7 @@ sys 模块
 logging模块是Python内置的标准模块，主要用于输出运行日志，可以设置输出日志的等级、日志保存路径、日志文件回滚等
 subprocess是Python 2.4中新增的一个模块，它允许你生成新的进程，连接到它们的 input/output/error 管道，并获取它们的返回（状态）码
 json 模块
-picle模块
+pickle模块
 configparser 是 Pyhton 标准库中用来解析配置文件的模块，并且内置方法和字典非常接近。Python2.x 中名为 ConfigParser，3.x 已更名小写，并加入了一些新功能
 randmon
 shutil模块
@@ -23,6 +23,8 @@ difflib
 filecmp
 zipfile
 tarfile
+re
+
 
 
 
