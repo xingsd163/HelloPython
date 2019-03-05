@@ -58,6 +58,8 @@ print(subprocess.run(["ls","-l"]))
 result = subprocess.run(["pwd"])
 print(type(result))
 
+
+
 print(subprocess.run(["ls", "-l", "/dev/null"], stdout=subprocess.PIPE))
 
 # 如果shell为True，那么指定的命令将通过shell执行。如果我们需要访问某些shell的特性，如管道、文件名通配符、环境变量扩展功能，这将是非常有用的
@@ -105,6 +107,8 @@ result3=subprocess.getoutput(['ls','-l'])
 print(result3)
 
 status,result4=subprocess.getstatusoutput(['ls','-l'])
+# both formats are the same
+# status,result4=subprocess.getstatusoutput('ls -l')
 print("Status code: ",status)
 print(result4)
 

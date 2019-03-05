@@ -21,6 +21,8 @@ getpass
 yaml
 difflib
 filecmp
+zipfile
+tarfile
 
 
 
