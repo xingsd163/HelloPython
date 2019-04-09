@@ -17,7 +17,8 @@
 # 在Python 3.5之后的版本中，官方文档中提倡通过subprocess.run()函数替代其他函数来使用subproccess模块的功能；
 # 在Python 3.5之前的版本中，我们可以通过subprocess.call()，subprocess.getoutput()等上面列出的其他函数来使用subprocess模块的功能；
 # subprocess.run()、subprocess.call()、subprocess.check_call()和subprocess.check_output()都是通过对subprocess.Popen的封装来实现的高级函数，因此如果我们需要更复杂功能时，可以通过subprocess.Popen来完成。
-# subprocess.getoutput()和subprocess.getstatusoutput()函数是来自Python 2.x的commands模块的两个遗留函数。它们隐式的调用系统shell，并且不保证其他函数所具有的安全性和异常处理的一致性。另外，它们从Python 3.3.4开始才支持Windows平台。
+# subprocess.getoutput()和subprocess.getstatusoutput()函数是来自Python 2.x的commands模块的两个遗留函数。它们隐式的调用系统shell，并且不保证其他函数所具有的安全性和异常处理的一致性。
+# 另外，它们从Python 3.3.4开始才支持Windows平台。
 
 # 函数参数列表：
 # subprocess.run(args, *, stdin=None, input=None, stdout=None, stderr=None, shell=False, timeout=None, check=False, universal_newlines=False)
@@ -106,6 +107,8 @@ print("***********************subprocess.getstatusoutput()**********************
 result3=subprocess.getoutput(['ls','-l'])
 print(result3)
 
+
+# 执行命令，获取命令执行状态、每行命令以及输出总行数
 status,result4=subprocess.getstatusoutput(['ls','-l'])
 # both formats are the same
 # status,result4=subprocess.getstatusoutput('ls -l')
